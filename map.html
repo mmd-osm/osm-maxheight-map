@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="description" content="[OpenStreetMap] OSM Truck QA Map - Contribute maximum height infos to OpenStreetMap data for better truck routing." />
+<meta name="keywords" content="OpenStreetMap, maxheight, missing tags, maxweight, maxaxleload, maxwidth, overpass, lkw, höhenbeschränkung" />
+
+
+<title>OSM Truck QA Map (created by mmd)</title>
+
+<!--  OSM Forum Thread: http://forum.openstreetmap.org/viewtopic.php?id=14154 -->
+
+<link rel="stylesheet"
+	href="js/lib/OpenLayers/theme/default/style.css"
+	type="text/css">
+
+	<link rel="stylesheet" type="text/css" href="css/jquery-ui-themes-1.9.2/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="css/layout.css" />
+      
+</head>
+
+<body class="load">
+    
+	<div id="loading">
+		<div id='loading-container'>
+			<p>
+				<img src='images/loader.gif' alt='Loading...' />Loading...
+			</p>
+    		<noscript>
+    		   <p><b>JavaScript support needs to be enabled in your browser for OSM Truck QA Map to work!</b></p>
+    		</noscript> 	
+			
+		</div>
+    	
+	 	<script type="text/javascript" src="js/lib/OpenLayers/OpenLayers.js"></script>    
+ 		<script type="text/javascript" src="js/lib/jquery/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="js/lib/jquery.ui/jquery-ui.min.js"></script>  	
+		<script type="text/javascript" src="js/lib/jquery.layout/jquery.layout-latest.min.js"></script>
+
+        
+        <script type="text/javascript" src="http://maxheight.bplaced.net/overpass/php/lang.php"></script>
+                
+		<script type="text/javascript" src="js/overpass.js"></script>
+		<script type="text/javascript" src="js/OpenStreetMap.js"></script>
+		<script type="text/javascript" src="js/maplink.js"></script>
+		<script type="text/javascript" src="js/popup.js"></script>
+		<script type="text/javascript" src="js/i18n.js"></script>
+		<script type="text/javascript" src="js/stylemaps.js"></script>
+		<script type="text/javascript" src="js/intersection.js"></script>
+		<script type="text/javascript" src="js/util.js"></script>
+		<script type="text/javascript" src="js/featurefilter.js"></script>
+		<script type="text/javascript" src="js/cookies.js"></script>
+		<script type="text/javascript" src="js/map.js"></script>
+		<script type="text/javascript" src="js/custom.js"></script>
+		<script type="text/javascript" src="js/lib/Blob.js/Blob.js"></script>
+		<script type="text/javascript" src="js/lib/Blob.js/BlobBuilder.js"></script>
+		<script type="text/javascript" src="js/lib/FileSaver.js/FileSaver.js"></script>
+	
+
+	</div>
+
+	<div class="ui-layout-north topheader">
+		<div id="title" data-translate-text="title">OSM Truck QA Map :: Fehlende Höhenbeschränkung in OSM</div>
+			<div id="panel" class="control"></div>
+		<div id="logo"><a href="http://wiki.openstreetmap.org/wiki/Maxheight_Map" target="_blank"><img id="logo_display" src="images/logo.png"/></a></div>
+	</div>
+	<!-- layout-north -->
+
+
+	<div class="ui-layout-west">
+		<span id="west-closer"></span>
+		<div class="header">Sidebar</div>
+		<div id="west-content" class="ui-layout-content">
+			<div class="widget-container">
+				<div id="tabs">
+					<ul>
+						<li><a href="#a" id="tab_search" data-translate-text="tab_search">Suche</a></li>
+						<li><a href="#b" id="tab_infos"> ? </a></li>
+					</ul>
+					<div id="a">
+						<div>
+							<input style="width: 90%; margin-left: auto; margin-right: auto; " class="search" type="search" id="search" autocomplete="off"
+								placeholder="Ort suchen...">
+						</div>
+					</div>
+					<div id="b">
+					    <div style="width: 95%; margin-left: auto; margin-right: auto; margin-top: 10px; margin-bottom: 10px; font-size: smaller;">
+					       <a href="http://wiki.openstreetmap.org/wiki/Maxheight_Map" target="_blank">
+					       <span style="color: blue; font-size: larger; font-weight: bold;"> Maxheight Map - Wiki Page</span>
+					       </a>
+					    </div>
+					    <div style="width: 95%; margin-left: auto; margin-right: auto; font-size: smaller; ">
+						<div>Created by <a href="http://openstreetmap.org/user/mmd" target="_blank">mmd</a></div> 
+						<div><p>Dieses Werk bzw. Inhalt steht unter einer Creative Commons Namensnennung - Weitergabe unter gleichen Bedingungen 3.0 Unported Lizenz.</p></div>
+						<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.de" target="_blank"><img alt="Creative Commons Lizenzvertrag" style="border-width:0; " src="images/license.png" /></a>
+						<div style="margin-top: 20px;">
+						jquery ui + layout based design used with permission from <a href="http://www.openstreetmap.org/user/misterboo">misterboo</a>, 
+						Search provided by Nominatim, 
+						French translation by <a href="http://www.openstreetmap.org/user/osm-operon" target="_blank">osm-operon</a>
+						</div>
+						<div><a href="http://overpass-api.de" target="_blank"><img alt="Overpass API" style="border-width:0; margin-top: 20px;" src="images/logo_overpass.png" /></a></div>
+						<div>Overpass API lag: <span id="overpass_lag">0</span> minutes</div>						
+						
+						<div style="margin-top: 20px;">For <a href="http://piwik.org/what-is-piwik/" target="_blank">Piwik Web tracking</a> opt-out, click on the Piwik icon below:
+						
+						</div>
+						<div><a href="http://maxheight.bplaced.net/piwik/index.php?module=CoreAdminHome&action=optOut" target="_blank"><img alt="Piwik Opt-Out" style="border-width:0; margin-top: 20px;" src="http://maxheight.bplaced.net/piwik/plugins/Morpheus/images/logo.svg" width="50%" height="50%"/> </a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div
+				class="widget-container ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
+				<div class="widgetheader ui-widget-header ui-corner-all">
+					<span class="widgettitle" id="options" data-translate-text="options">Options</span>
+				</div>
+
+				<div class="widgetcontent">
+					<div
+						style="min-height: 40px; width: 90%; margin-top: 10px; margin-left: 5px; margin-right: auto; font-size: smaller;">
+						<div style="padding: 5px; ">
+						
+						<label for="slide" id="opacity" data-translate-title="opacity_title" data-translate-text="opacity">Opacitiy:</label>
+						<div id="slider" data-translate-title="opacity_title" style="float:right;width:70%;"></div>
+						
+						</div>
+						<div style="padding: 5px; margin-bottom: 10px;">
+						 <label id="labelstyle" data-translate-title="labelstyle_title" data-translate-text="labelstyle" for="mystyle" style="vertical-align: middle;">Show intersection as:</label>
+						<div id="mystyle" data-translate-title="labelstyle_title" style="float:right;width:auto; min-width: 60px; vertical-align: middle;">
+							 <input type="radio" name="mystyle" id="opt_line" data-translate-button="opt_line" checked="checked" value="line"/><label for="opt_line">Line</label>
+							 <input type="radio" name="mystyle" id="opt_point" data-translate-button="opt_point" value="point"/><label for="opt_point">Point</label>
+						</div>
+									
+						</div>
+						
+						
+					</div>
+				</div>
+			</div>
+			
+			<div
+				class="widget-container ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" id="simulationwidget">
+				<div class="widgetheader ui-widget-header ui-corner-all">
+					<span class="widgettitle" id="simulation" data-translate-text="simulation">Simulation</span>
+				</div>
+
+				<div class="widgetcontent">
+					<div
+						style="height: 20px; width: 90%; margin-top: 10px; margin-left: auto; margin-right: auto;">
+						<div id="slider_maxheight"></div>
+					</div>
+					<div style="font-size: smaller; width: 90%; margin-left: auto; margin-right: auto;" ><span id="vehicle_height" data-translate-text="vehicle_height">Fahrzeughöhe: </span><span id="maxheight_value"></span></div>
+				</div>
+				
+				<div class="widgetcontent">
+					<div
+						style="height: 20px; width: 90%; margin-top: 10px; margin-left: auto; margin-right: auto;">
+						<div id="slider_maxweight"></div>
+					</div>
+					<div style="font-size: smaller; width: 90%; margin-left: auto; margin-right: auto;" ><span id="vehicle_weight" data-translate-text="vehicle_weight">Gewicht: </span><span id="maxweight_value"></span></div>
+				</div>		
+							
+						
+			</div>
+			
+			<div
+				class="widget-container ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
+				<div class="widgetheader ui-widget-header ui-corner-all">
+					<span class="widgettitle" id="layerlocate">GPS-Position</span>
+				</div>
+				<div id="locateme" class="widgetcontent">
+					<div style="font-size: 7pt; width: 90%; margin-top: 10px; margin-left: auto; margin-right: auto; margin-bottom: 10px; ">
+						<button id="locate" data-translate-title="locate_title" data-translate-button="locate">Locate me!</button>
+						<input type="checkbox"  name="track" id="track" data-translate-title="track_title" data-translate-button="track">
+        					<label for="track" data-translate-title="track_title">Track my position</label>
+        			</div>
+				</div>
+			</div>	
+			
+			<div
+				class="widget-container ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
+				<div class="widgetheader ui-widget-header ui-corner-all">
+					<span class="widgettitle" id="export" data-translate-text="export">Export</span>
+				</div>
+				<div id="export_widget" class="widgetcontent">
+					<div style="font-size: 7pt; width: 90%; margin-top: 10px; margin-left: auto; margin-right: auto; margin-bottom: 10px; ">
+						<button id="export_gpx" data-translate-title="export_gpx_title" data-translate-button="export_gpx">Als GPX exportieren</button> 
+					</div>
+				</div>
+			</div>					
+
+
+			<div
+				class="widget-container ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
+				<div class="widgetheader ui-widget-header ui-corner-all">
+					<span class="widgettitle" id="tagging">Tagging</span>
+				</div>
+
+				<div class="widgetcontent" id="maxheight"
+					style="font-size: 10pt; font-weight: bold; font-family: sans-serif; z-index: 2000; margin: 8px; padding: 3px; position: relative; bottom: 0px; left: 0px; opacity: 0.8; min-height: 3em; width: 90%; word-wrap: break-word;">
+				</div>
+			</div>
+
+		</div>
+		<div class="footer"></div>
+	</div>
+	<!-- layout-west -->
+ 
+ 
+	<div class="ui-layout-south"></div>
+	<!-- layout-south -->
+
+	<div class="ui-layout-east">
+		<span id="east-closer"></span>
+		<!--  <div class="header" id="mapdetails" data-translate-text="mapdetails">Kartendetails</div> -->
+		
+		<div class="header" id="mapdetails" data-translate-text="layerselection">Layer</div>
+		
+		<div id="east-content" class="ui-layout-content">
+			<div
+				class="widget-container ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
+		<!--  		
+				<div class="widgetheader ui-widget-header ui-corner-all">
+					<span class="ui-icon ui-icon-minusthick">&amp;nbpsp;</span> <span
+						class="widgettitle" id="layerselection" data-translate-text="layerselection">Layer</span>
+				</div>
+-->				
+				<div id="layerswitcher" class="widgetcontent"></div>
+			</div>
+			<div id="info2"></div>
+			
+
+			
+		</div>
+		<div class="footer">
+			<div id="permalink">
+				<a href="#" id="permlink">Permalink</a>
+			</div>
+		</div>
+	</div>
+	<!-- layout east -->
+
+	<div class="ui-layout-center">
+		<div class="ui-layout-content" id="map">
+					<div class="editlink olControlNoSelect" id="editjosmpotlatch" unselectable="on">Edit</div>
+					<div id="attribution"></div>
+					<div id="labelSwitch" class="olControl" style="position: absolute; z-index: 30019;"></div>
+		</div>
+		<div class="footer mapfooter">
+			<div id="zoom"></div>
+			<div id="scaleline"></div>
+			<!--  <div id="attribution"></div> -->
+			<div id="mousepos"></div>
+			<div id="statusline">No status set yet.</div>
+		</div>
+	</div>
+	<!-- layout center -->
+
+
+	<!-- iframe für JOSM remote link -->
+	<div style="position: absolute; left: 0; top: 0; width: 0; height: 0;" id="map2"></div>
+	
+	<iframe style="display: none" id="hiddenIframe" name="hiddenIframe"></iframe>
+	
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['setVisitorCookieTimeout', 604800]);    // visitor cookie expires after 7 days, default = 2 years
+  _paq.push(['setReferralCookieTimeout', 604800]);   // referral cookie expires after 7 days, default = 6 months
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://maxheight.bplaced.net/piwik/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
+    g.defer=true; g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+
+</script>
+<noscript><p><img src="http://maxheight.bplaced.net/piwik/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->	
+</body>
+</html>
+
+

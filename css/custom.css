@@ -1,0 +1,265 @@
+@CHARSET "UTF-8";
+
+body {
+    background-color:#EEEEEE;
+    font-family:Lucida Grande,Lucida Sans,Arial,Helvetica,sans-serif;
+    font-size:1em;
+}
+
+body .load {overflow: hidden;}
+
+html.busy, html.busy * {
+  cursor: wait !important;
+}
+
+
+#map {width: 100%;
+     height: 100%;}
+
+#loading {
+    background-color: #eeeeee; 
+    height: 100%; 
+    width: 100%; 
+    overflow: hidden; 
+    position: absolute; 
+    left: 0; 
+    top: 0;
+    z-index: 99999;
+}
+
+#loading-container {
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+}
+#loading-container p {
+    width: 800px; 
+    height: 50px; 
+    font-family: "Helvetica", "Arial", sans-serif; 
+    font-size: 18px; 
+    line-height: 50px;
+    color: black; 
+    text-shadow: 0px 1px 0px white;
+    text-align: center; 
+    margin: -25px 0 0 -400px;     
+}
+
+#loading-container img { margin: 0 10px -2px 0; }
+
+a {text-decoration: none}
+a:hover {text-decoration: underline}
+
+.topheader {background:url('../images/header-bg.png') repeat-x #356a9f; height:60px  !important; }
+
+@media only screen and (max-width: 760px) {
+	.topheader {background:url('../images/header-bg.png') repeat-x #356a9f; height:30px  !important; }
+	#logo {background:url('../images/logo.png') no-repeat; height:30px; width: 100%}
+}
+
+.baseLbl {margin: 5px 0; font-weight: bold;}
+.dataLbl {margin: 5px 0; font-weight: bold;}
+
+.olTileImage {
+    -webkit-transition: opacity 0.2s linear;
+    -moz-transition: opacity 0.2s linear;
+    -o-transition: opacity 0.2s linear;
+    transition: opacity 0.2s linear;
+}
+
+.olHandlerBoxZoomBox {
+    border: 2px solid #444;
+    position: absolute;
+    background-color: #fff;
+    opacity: 0.50;
+    font-size: 1px;
+    filter: alpha(opacity=50);
+}
+/*
+
+#featurePopup.olPopup {
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px; 
+    -moz-box-shadow: 0 0 4px #555;
+    -webkit-box-shadow: 0 0 4px #555;
+    box-shadow: 0 0 8px #555; 
+    -padding: 5px;
+}
+
+#featureTooltip.olPopup {
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px; 
+    -moz-box-shadow: 0 0 4px #555;
+    -webkit-box-shadow: 0 0 4px #555;
+    box-shadow: 0 0 4px #555; 
+    -padding: 3px;
+}
+
+.olPopupContent {
+    font-size: 12px;
+    overflow: hidden;
+}
+
+#featurePopup .olPopupContent {
+    padding:5px;
+}   
+
+#featureTooltip .olPopupContent {
+    padding:3px;
+}   
+
+.olPopupContent th , .olPopupContent td{
+    text-align: left; 
+    border-top: 1px solid #eee; 
+    padding: 3px 10px;
+    white-space:nowrap;
+}
+.olPopupContent table tr:first-child  th, .olPopupContent table tr:first-child  td{
+    border-top: 0; 
+}
+
+.olPopupContent table  th {
+    border-right: 1px solid #eee; 
+}
+
+.olPopupContent table {margin-bottom: 10px; border-collapse:collapse;}
+.olPopupContent input {width: 200px;}
+
+.olPopupCloseBox {
+  background: url("../img/close.png") no-repeat;
+  cursor: pointer;
+}
+*/
+
+.olControlScale {
+    right: 3px;
+    bottom: 3em;
+    display: block;
+    position: absolute;
+    font-size: smaller;
+}
+.olControlScaleLine {
+   display: block;
+   position: absolute;
+   left: 10px;
+   bottom: 15px;
+   font-size: xx-small;
+}
+.olControlScaleLineBottom {
+   border: solid 2px black;
+   border-bottom: none;
+   margin-top:-2px;
+   text-align: center;
+}
+.olControlScaleLineTop {
+   border: solid 2px black;
+   border-top: none;
+   text-align: center;
+}
+
+.olControlAttribution { bottom: 1em; }
+.olControlMeasureActive { cursor: crosshair; }
+
+
+#panel {display:block; float:right; margin: 18px 5px 0 10px;}
+
+.control  div{width: 24px; height: 24px; float: left; background-image: url("../img/button-bar.png"); background-repeat: no-repeat; cursor: pointer;}
+
+.olControlNavigationItemInactive {background-position: 0 0; }
+.olControlNavigationItemInactive:hover {background-position: 0 -72px; }
+.olControlNavigationItemActive {background-position: 0 -48px;}
+
+.olControlBBoxItemInactive {background-position: -24px 0;}
+.olControlBBoxItemInactive:hover {background-position: -24px -72px;}
+.olControlBBoxItemActive {background-position: -24px -48px;}
+
+.olControlMeasureLineItemInactive {background-position: -48px 0;}
+.olControlMeasureLineItemInactive:hover {background-position: -48px -72px;}
+.olControlMeasureLineItemActive {background-position: -48px -48px;}
+
+.olControlMeasureAreaItemInactive {background-position: -72px 0; margin-right: 5px;}
+.olControlMeasureAreaItemInactive:hover {background-position: -72px -72px; margin-right: 5px;}
+.olControlMeasureAreaItemActive {background-position: -72px -48px; margin-right: 5px;}
+
+.olControlNavigationHistoryNextItemInactive    {background-position: -192px -24px;}
+.olControlNavigationHistoryNextItemActive {background-position: -192px 0;}
+.olControlNavigationHistoryNextItemActive:hover {background-position: -192px -72px;}
+
+.olControlNavigationHistoryPreviousItemInactive    {background-position: -216px -24px; margin-right: 5px;}
+.olControlNavigationHistoryPreviousItemActive {background-position: -216px 0; margin-right: 5px;}
+.olControlNavigationHistoryPreviousItemActive:hover {background-position: -216px -72px; margin-right: 5px;}
+
+.olControlJosmEditItemInactive {background-position: -240px -24px;}
+.olControlJosmEditItemActive {background-position: -240px 0;}
+.olControlJosmEditItemActive:hover {background-position: -240px -72px;}
+
+.olControlZoomExtentItemInactive {background-position: -264px 0; margin-right: 5px;}
+.olControlZoomExtentItemInactive:hover {background-position: -264px -72px; margin-right: 5px;}
+
+.olControlDockWItemInactive {background-position: -96px 0;}
+.olControlDockWItemInactive:hover {background-position: -96px -72px;}
+.olControlDockEItemInactive {background-position: -120px 0;}
+.olControlDockEItemInactive:hover {background-position: -120px -72px;}
+.olControlDockNItemInactive {background-position: -144px 0;}
+.olControlDockNItemInactive:hover {background-position: -144px -72px;}
+.olControlDockSItemInactive {background-position: -168px 0;}
+.olControlDockSItemInactive:hover {background-position: -168px -72px;}
+
+
+.ui-widget {font-size: 12px;}
+#west-content, #east-content {overflow: auto; padding: 10px 5px 5px 5px;}
+#west-content .ui-tabs .ui-tabs-nav li a {padding: 0.1em 1em;}
+
+/* .east-content a {text-decoration: none; color: black;} */
+.layersDiv {background: #fff; border: 0px solid #bbb; padding: 0; margin: 0}
+.layercontainer {margin-bottom: 10px;}
+#info {background: #fff; border: 0px solid #bbb; padding: 5px; margin: 0}
+#permalink, #mousepos {float:right;}
+#zoom {float:left; width: 80px;}
+#scaleline {height: 15px; font-size: 10px; float:left; width: 120px;}
+#attribution {font-size: 10px; float:left}
+#attribution img{display: none}
+
+#statusline { width: 400px;  margin-left: auto ;  margin-right: auto ; }
+
+#josmiframe {display: none}
+.box {display:block; border: 1px solid #aaa; background: #f3f3f3; margin: 3px 0; padding: 1px;}
+
+
+.widget-container { margin: 0 0 10px 0; font-size: 12px;}
+.widgetheader { margin: 0.3em; padding: 3px;}
+.widgetheader .ui-icon { float: right;}
+.widgetcontent { padding: 0.4em; }
+.widgetcontent img{ margin-top: 1em; }
+.ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 80px !important; }
+.ui-state-highlight { margin: 0 1em 0.2em 0; font-size: 70%; height: 80px; line-height: 1.2em; }
+.ui-sortable-placeholder * { visibility: hidden; }
+.legendslidercontainer { width: 250px; }
+.legendcbcontainer { }
+.legendvisibilitysetter { display: none; }
+.legendslider { margin: 10px; }
+.ui-icon {cursor: pointer; }
+
+/* toolbar */
+.ui-button {font-size: 70%;}
+
+div.olPopupMarker div.tooltip {
+    display: none;
+    background: white;
+    border: 1px solid gray;
+    padding: 2px;
+    left: -15px;
+    top: 40px;
+    z-index: 100;
+}
+
+div.olPopupMarker:hover div.tooltip {
+    display: block;
+}
+
+.olPopupMarkerTooltip {font-size: 12px;}
+
+.olControlMaplink { font-size: 10px; }
+
+

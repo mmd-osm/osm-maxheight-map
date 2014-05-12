@@ -7,6 +7,41 @@ function SmartPopup(map){
     this.layers=[];
     this.anchor = null;
     var thisPopup = this;
+    var imagepath = 'images/josm/';
+
+    this.imagepath = imagepath;
+
+    this.preload_images = true;
+ 
+	// Wildcard '*' -> value irrelevant for icon
+	// Iconds and rules derived from JOSM's styles/standard/elemstyle.xml
+	
+    var images = { 'maxheight'    : { 'none':        'no_icon.png',
+		                              'unspecified': 'no_icon.png',
+		                              'default':     'no_icon.png',
+		                              '*': 'maxheight.png'    },
+			       'maxweight'    : { '*': 'maxweight.png'    },
+			       'maxlength'    : { '*': 'maxlength.png'    },
+			       'maxwidth'     : { '*': 'maxwidth.png'     },
+			       'maxaxleload'  : { '*': 'maxaxleload.png'  },
+			       'hazmat'       : { 'no' : 'hazmat.png'     },
+			       'hazmat:water' : { 'no' : 'hazmat_water.png' },
+			       'psv'          : { 'no' : 'psv.png',
+			    	                  'yes': 'psv_yes.png'    },
+			       'hgv'          : { 'no' : 'goods.png'      },
+			       'goods'        : { 'no' : 'goods.png'      },			       
+			       'motorcycle'   : { 'no' : 'motorbike.png'  },
+			       'motorcar'     : { 'no' : 'motorcar.png'   },			       
+			       'access'       : { 'no' : 'access.png'     },
+			       'bicycle'      : { 'no' : 'bicycle.png',
+			    	                  'designated': 'bicycle-designated.png' },
+			       'horse'        : { 'no' : 'horse.png',
+    	                              'designated': 'horse-designated.png' },			       
+    	           'foot'         : { 'no' : 'foot.png',
+        	                          'designated': 'foot-designated.png' }		       
+			       };
+     this.images = images;
+
     this.selectControl = new OpenLayers.Control.SelectFeature([],{
         onSelect: function(feature) { thisPopup.onFeatureSelect(feature); }, 
         onUnselect: thisPopup.onFeatureUnselect,
@@ -68,35 +103,17 @@ SmartPopup.prototype.onFeatureSelect = function(feature) {
 	var selectControl = this.selectControl;
 	this.onFeatureUnselect();
 
-	var imagepath = 'images/josm/';
+        if (this.preload_images === true) {
+
+	       // Preload images
+	        $.each(this.images, function(k, v) {
+	           $.each(v, function(k1, v1) {
+	             (new Image()).src = 'images/josm/' + v1;
+	           });
+	        });
+		this.preload_images = false;
+	}
  
-	// Wildcard '*' -> value irrelevant for icon
-	// Iconds and rules derived from JOSM's styles/standard/elemstyle.xml
-	
-	var images = { 'maxheight'    : { 'none':        'no_icon.png',
-		                              'unspecified': 'no_icon.png',
-		                              'default':     'no_icon.png',
-		                              '*': 'maxheight.png'    },
-			       'maxweight'    : { '*': 'maxweight.png'    },
-			       'maxlength'    : { '*': 'maxlength.png'    },
-			       'maxwidth'     : { '*': 'maxwidth.png'     },
-			       'maxaxleload'  : { '*': 'maxaxleload.png'  },
-			       'hazmat'       : { 'no' : 'hazmat.png'     },
-			       'hazmat:water' : { 'no' : 'hazmat_water.png' },
-			       'psv'          : { 'no' : 'psv.png',
-			    	                  'yes': 'psv_yes.png'    },
-			       'hgv'          : { 'no' : 'goods.png'      },
-			       'goods'        : { 'no' : 'goods.png'      },			       
-			       'motorcycle'   : { 'no' : 'motorbike.png'  },
-			       'motorcar'     : { 'no' : 'motorcar.png'   },			       
-			       'access'       : { 'no' : 'access.png'     },
-			       'bicycle'      : { 'no' : 'bicycle.png',
-			    	                  'designated': 'bicycle-designated.png' },
-			       'horse'        : { 'no' : 'horse.png',
-    	                              'designated': 'horse-designated.png' },			       
-    	           'foot'         : { 'no' : 'foot.png',
-        	                          'designated': 'foot-designated.png' }		       
-			       };
 
 	if (selectedFeature.layer.template) {
 		var html = selectedFeature.layer.template.replace(/%([^%]*)%/g, 
@@ -118,10 +135,10 @@ SmartPopup.prototype.onFeatureSelect = function(feature) {
 			var title = '<a href="http://wiki.openstreetmap.org/wiki/Key:' + tag + '" target="_blank">' + tag + '</a>';
 			var value = attr[tag] || '';
 			
-			var icon = (images[tag] != undefined ? (images[tag][value] || images[tag]['*'] || '') : '');
+			var icon = (this.images[tag] != undefined ? (this.images[tag][value] || this.images[tag]['*'] || '') : '');
 
 			rows.push ('<tr><th scope="row">' + title + '</th>' +
-					   (icon != '' ? '<td scope="row"><img src="'+ imagepath + icon +'"/></td>' : '<td/>') + 
+					   (icon != '' ? '<td scope="row"><img src="'+ this.imagepath + icon +'"/></td>' : '<td/>') + 
 					   '<td style="max-width: 150px;">'
 					+ formatValue(value).replace(/\034/g,'<br/>') + '</td></tr>');
 		}
@@ -217,6 +234,8 @@ function html(text) {
     if (text==null) return '';
     return String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
+
+
 
 
 

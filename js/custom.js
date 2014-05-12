@@ -16,6 +16,61 @@ $(document).ready(
 			$( "#locate").button();
 			
 			$( "#export_gpx").button();
+									
+			$( "#datepicker" ).datepicker({ 
+				
+				minDate: new Date(2012, 9 - 1, 1), 
+				maxDate: "+0D",
+				changeMonth: true,
+				changeYear: true,
+				showButtonPanel: true,
+				onSelect: function(dateText) { 
+				    $(this).change();
+				  }
+			});
+			
+			$( "#datepicker" ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
+			
+			$('#datepicker').change(function() { 
+				var current_date = $("#datepicker").datepicker( 'getDate' );
+			    current_date.setHours(0, 0, 0, 0);
+				_global_date = current_date;
+				var visibleLayers = window.map.getLayersBy("visibility", true);
+				for (var i = 0; i < visibleLayers.length; i++) {
+					var v = visibleLayers[i];
+					if (v.features!=undefined) {
+						v.removeAllFeatures();
+						v.refresh({force:true});
+					}
+						   
+				}
+			});
+			
+			function update_datepicker(diff) {
+				
+				var date = $("#datepicker").datepicker( 'getDate' );
+				
+				switch (diff) {
+				case -3: date.setMonth(date.getMonth() -1); break;
+				case -2: date.setDate(date.getDate() - 7); break;
+				case -1: date.setDate(date.getDate() - 1); break;
+				case  1: date.setDate(date.getDate() + 1); break;
+				case  2: date.setDate(date.getDate() + 7); break;
+				case  3: date.setMonth(date.getMonth() +1 ); break;
+				}
+				
+				$("#datepicker").datepicker( "setDate", date).change();
+			}
+			
+			$( "#monthminus").button().click( function() { update_datepicker(-3); });
+			$( "#weekminus").button() .click( function() { update_datepicker(-2); });
+			$( "#dayminus").button()  .click( function() { update_datepicker(-1); });
+			
+			$( "#monthplus").button() .click( function() { update_datepicker(+3); });
+			$( "#weekplus").button()  .click( function() { update_datepicker(+2); });
+			$( "#dayplus").button()   .click( function() { update_datepicker(+3); });
+			
+			$('.buttonaligngroup').width(75);			
 			
 			if (window.innerWidth >= 800) {
 			  layoutSettings["west"]["initClosed"] = false;

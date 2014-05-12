@@ -9,7 +9,7 @@
 <meta name="keywords" content="OpenStreetMap, maxheight, missing tags, maxweight, maxaxleload, maxwidth, overpass, lkw, höhenbeschränkung" />
 
 
-<title>OSM Truck QA Map (created by mmd)</title>
+<title>OpenStreetMap Truck QA Map (created by mmd)</title>
 
 <!--  OSM Forum Thread: http://forum.openstreetmap.org/viewtopic.php?id=14154 -->
 
@@ -27,7 +27,7 @@
 	<div id="loading">
 		<div id='loading-container'>
 			<p>
-				<img src='images/loader.gif' alt='Loading...' />Loading...
+				<img src='images/loader.gif'/>Maxheight Map is loading...
 			</p>
     		<noscript>
     		   <p><b>JavaScript support needs to be enabled in your browser for OSM Truck QA Map to work!</b></p>
@@ -55,9 +55,7 @@
 		<script type="text/javascript" src="js/cookies.js"></script>
 		<script type="text/javascript" src="js/map.js"></script>
 		<script type="text/javascript" src="js/custom.js"></script>
-		<script type="text/javascript" src="js/lib/Blob.js/Blob.js"></script>
-		<script type="text/javascript" src="js/lib/Blob.js/BlobBuilder.js"></script>
-		<script type="text/javascript" src="js/lib/FileSaver.js/FileSaver.js"></script>
+
 	
 
 	</div>
@@ -78,7 +76,8 @@
 				<div id="tabs">
 					<ul>
 						<li><a href="#a" id="tab_search" data-translate-text="tab_search">Suche</a></li>
-						<li><a href="#b" id="tab_infos"> ? </a></li>
+						<li><a href="#b" id="tab_timetravel" data-translate-text="tab_time">Time</a></li>
+						<li><a href="#c" id="tab_infos"> ? </a></li>
 					</ul>
 					<div id="a">
 						<div>
@@ -87,6 +86,30 @@
 						</div>
 					</div>
 					<div id="b">
+					
+					    <div style="width: 95%; margin-left: auto; margin-right: auto; font-size: smaller; ">This is a small beta test for the forthcoming Overpass API 0.7.50 attic feature.</div> 
+					    					
+                        <div style="width: 95%; margin-left: auto; margin-right: auto;  font-size: smaller;">					    					
+					    					
+					    <p>Date: <input type="text" id="datepicker" data-translate-title="datepicker_title" style="background-color: white;" readonly></p>
+				
+					
+						    <table style="margin: auto; width: auto;">
+						    <tr><td><button id="monthminus" data-translate-button="monthminus" class="buttonaligngroup">-1 Month</button></td>
+						        <td><button id="monthplus" data-translate-button="monthplus" class="buttonaligngroup">+1 Month</button></td> </tr>
+						    <tr><td><button id="weekminus" data-translate-button="weekminus" class="buttonaligngroup">-1 Week</button></td>
+						        <td><button id="weekplus" data-translate-button="weekplus" class="buttonaligngroup">+1 Week</button></td></tr>
+						    <tr><td><button id="dayminus" data-translate-button="dayminus" class="buttonaligngroup">-1 Day</button></td>
+						        <td><button id="dayplus" data-translate-button="dayplus" class="buttonaligngroup">+1 Day</button></td></tr>
+						    </table>
+
+				
+						</div>					
+
+					    <div style="width: 95%; margin-left: auto; margin-right: auto; margin-top: 10px; font-size: smaller; ">Pick a date in the date control or jump backwards/forwards in month/week/day steps to retrieve OSM data as it was back then.</div>					
+					
+					</div>
+					<div id="c">
 					    <div style="width: 95%; margin-left: auto; margin-right: auto; margin-top: 10px; margin-bottom: 10px; font-size: smaller;">
 					       <a href="http://wiki.openstreetmap.org/wiki/Maxheight_Map" target="_blank">
 					       <span style="color: blue; font-size: larger; font-weight: bold;"> Maxheight Map - Wiki Page</span>

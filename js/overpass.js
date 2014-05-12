@@ -169,6 +169,15 @@ OpenLayers.Protocol.HTTP.prototype.read_custom = function(options, use_IE_workar
 		options.params.data = bbox_fragments_url;
 		options.params["bbox"] = undefined;
 	}
+	
+	var _currentdate = new Date();
+	_currentdate.setHours(0, 0, 0, 0);
+	
+	if (_global_date.getTime() < _currentdate.getTime()) {
+		options.params.data = '[date:"'+ formatDate(
+				_global_date,
+				"{FullYear}-{Month:2}-{Date:2}T23:59:59Z")+'"]' + options.params.data;
+	}
 
 	if (use_IE_workaround == true) {
 		var resp = new OpenLayers.Protocol.Response({requestType: "read"});

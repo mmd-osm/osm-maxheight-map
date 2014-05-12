@@ -1,3 +1,6 @@
+// https://gist.github.com/atesgoral/1005948
+var formatDate = function(d,f){return f.replace(/{(.+?)(?::(.*?))?}/g,function(v,c,p){for(v=d["get"+c]()+/h/.test(c)+"";v.length<p;v=0+v);return v;})};
+
 function getParam(sname) {
 	var params = location.search.substr(location.search.indexOf("?")+1);
 	var sval = "";
@@ -347,13 +350,21 @@ function exportGPX(layers, layers_intersection) {
 	}
 	
 	gpx += "</gpx>";
-	
-	var bb = new BlobBuilder();
-	bb.append(gpx);
-	var blob = bb.getBlob("application/gpx+xml;charset=" + document.characterSet);
-	saveAs(blob, "points.gpx");
 
-	
+	$.when(
+	    $.getScript( "js/lib/Blob.js/Blob.js" ),
+	    $.getScript( "js/lib/Blob.js/BlobBuilder.js"),
+	    $.getScript( "js/lib/FileSaver.js/FileSaver.js" ),
+	    $.Deferred(function( deferred ){
+	        $( deferred.resolve );
+	    })
+	).done(function(){
+		var bb = new BlobBuilder();
+		bb.append(gpx);
+		var blob = bb.getBlob("application/gpx+xml;charset=" + document.characterSet);
+		saveAs(blob, "points.gpx");
+	});
+		
 }
 
 // Test: For performance reasons convert x / y coordinates to int

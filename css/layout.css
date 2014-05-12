@@ -331,7 +331,8 @@ a:hover {text-decoration: underline}
 .widgetcontent { padding: 0.4em; }
 .widgetcontent img{ margin-top: 1em; }
 .ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 80px !important; }
-.ui-state-highlight { margin: 0 1em 0.2em 0; font-size: 70%; height: 80px; line-height: 1.2em; }
+/* .ui-state-highlight { margin: 0 1em 0.2em 0; font-size: 70%; height: 80px; line-height: 1.2em; }   */
+/* .ui-state-highlight { margin: 0 1em 0.2em 0; font-size: 70%; height: 100%; line-height: 1.2em; }   */
 .ui-sortable-placeholder * { visibility: hidden; }
 .legendslidercontainer { width: 250px; }
 .legendcbcontainer { }

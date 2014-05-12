@@ -11,6 +11,7 @@ var _global_timeout = 20;
 var _global_server = 'http://overpass-api.de/api/';
 var _global_seg_x = undefined;
 var _global_seg_y = undefined;
+var _global_date = new Date();
 
 var epsg4326;
 var epsg900913;
@@ -75,6 +76,20 @@ function initMap(div_id){
 			}
 		}
 		
+		var dateParam = getParam("date");                    // date in format YYYY-MM-DD
+		if (/\d{4}-\d{2}-\d{2}/i.test(dateParam)) {
+			var comp = dateParam.split('-');
+			var _y = parseInt(comp[0], 10);
+			var _m = parseInt(comp[1], 10);
+			var _d = parseInt(comp[2], 10);
+			var date = new Date(_y,_m-1,_d);
+			if (date.getFullYear() == _y && 
+					date.getMonth() + 1 == _m && 
+					date.getDate() == _d) {
+				_global_date = date;
+			}
+		}
+		
 		var seg_x = getParam("segx");
 		if (isNumber(seg_x)) {
 			seg_x = Math.floor(seg_x);
@@ -115,7 +130,7 @@ function initMap(div_id){
 	$('#search').prop('placeholder', OpenLayers.i18n('search'));
 	$('#editjosmpotlatch').html(OpenLayers.i18n('editlinks'));	
 	
-
+	$( "#datepicker").datepicker("setDate", _global_date);
 	 			  	
 	OpenLayers.ImgPath = "js/lib/OpenLayers/theme/dark/";
 

@@ -68,7 +68,7 @@ $(document).ready(
 			
 			$( "#monthplus").button() .click( function() { update_datepicker(+3); });
 			$( "#weekplus").button()  .click( function() { update_datepicker(+2); });
-			$( "#dayplus").button()   .click( function() { update_datepicker(+3); });
+			$( "#dayplus").button()   .click( function() { update_datepicker(+1); });
 			
 			$('.buttonaligngroup').width(75);			
 			

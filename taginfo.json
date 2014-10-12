@@ -31,31 +31,31 @@
 			"object_types": ["way", "node"]
 		},
 		{
-			"key":"maxweight"
+			"key":"maxweight",
 			"object_types": ["way", "node"]			
 		},
 		{
-			"key":"maxaxleload"
+			"key":"maxaxleload",
 			"object_types": ["way", "node"]			
 		},		
 		{
-			"key":"maxspeed:hgv"
+			"key":"maxspeed:hgv",
 			"object_types": ["way", "node"]			
 		},		
 		{
-			"key":"hgv"
+			"key":"hgv",
 			"object_types": ["way", "node"]			
 		},		
 		{
-			"key":"hazmat"
+			"key":"hazmat",
 			"object_types": ["way", "node"]			
 		},	
 		{
-			"key":"toll"
+			"key":"toll",
 			"object_types": ["way", "node"]			
 		},
 		{
-			"key":"toll:N3"
+			"key":"toll:N3",
 			"object_types": ["way", "node"]			
 		},	
 		{

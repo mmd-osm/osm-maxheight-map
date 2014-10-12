@@ -12,14 +12,77 @@
 		"keywords":[
 			"truck", "qa"
 		]
-		
 	},
 	"tags":[
 		{
-			"key":"maxheight"
+			"key":"maxheight",
+			"object_types": ["way", "node"]
+		},
+		{
+			"key":"maxheight:physical",
+			"object_types": ["way", "node"]
+		},
+		{
+			"key":"maxwidth",
+			"object_types": ["way", "node"]
+		},
+		{
+			"key":"maxlength",
+			"object_types": ["way", "node"]
 		},
 		{
 			"key":"maxweight"
+			"object_types": ["way", "node"]			
+		},
+		{
+			"key":"maxaxleload"
+			"object_types": ["way", "node"]			
+		},		
+		{
+			"key":"maxspeed:hgv"
+			"object_types": ["way", "node"]			
+		},		
+		{
+			"key":"hgv"
+			"object_types": ["way", "node"]			
+		},		
+		{
+			"key":"hazmat"
+			"object_types": ["way", "node"]			
+		},	
+		{
+			"key":"toll"
+			"object_types": ["way", "node"]			
+		},
+		{
+			"key":"toll:N3"
+			"object_types": ["way", "node"]			
+		},	
+		{
+			"key":"barrier",
+			"value":"toll_booth",
+			"object_types": ["node","way"]			
+		},	
+		{
+			"key":"bridge",
+			"value":"yes",
+			"object_types": ["way"]			
+		},		
+		{
+			"key":"bridge",
+			"value":"viaduct",
+			"object_types": ["way"]			
+		},		
+		{
+			"key":"tunnel",
+			"value":"yes",
+			"object_types": ["node","way"]			
+		},
+		{
+			"key":"tunnel",
+			"value":"building_passage",
+			"object_types": ["node","way"]			
 		}
+
 	]
 }

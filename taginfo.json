@@ -1,14 +1,14 @@
 {
 	"data_format":1,
-	"data_url":"https://raw.githubusercontent.com/mmd-osm/osm-maxheight-map/taginfo.json",
+	"data_url":"https://raw.githubusercontent.com/mmd-osm/osm-maxheight-map/master/taginfo.json",
 	"project":{
 		"name":"Maxheight Map",
 		"description":"OSM Truck QA Map/Maxheight Map",
 		"project_url":"http://maxheight.bplaced.net",
 		"doc_url":"http://wiki.openstreetmap.org/wiki/Maxheight_Map",
 		"icon_url":"maxheight.bplaced.net/favicon.ico",
-    "contact_name": "mmd",
-    "contact_email": "mmd.osm+taginfo@gmail.com",		
+    		"contact_name": "mmd",
+    		"contact_email": "mmd.osm+taginfo@gmail.com",		
 		"keywords":[
 			"truck", "qa"
 		]

@@ -6,7 +6,7 @@
 		"description":"OSM Truck QA Map/Maxheight Map",
 		"project_url":"http://maxheight.bplaced.net",
 		"doc_url":"http://wiki.openstreetmap.org/wiki/Maxheight_Map",
-		"icon_url":"maxheight.bplaced.net/favicon.ico",
+		"icon_url":"http://maxheight.bplaced.net/favicon.ico",
     		"contact_name": "mmd",
     		"contact_email": "mmd.osm+taginfo@gmail.com",		
 		"keywords":[

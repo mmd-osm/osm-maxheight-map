@@ -3,7 +3,7 @@
 // I18N - translation
 
 OpenLayers.Lang.de = OpenLayers.Util.extend(OpenLayers.Lang.de, {
-	'title'         : 'OSM Truck QA Map - Fehlende Höhenbeschränkung in OSM',
+	'title'         : 'OSM Truck QA Map - Fehlende Höhenbeschränkung in OpenStreetMap',
 	'maxheight'     : 'Höchstzul. Höhe',
 	'ito'           : 'hgv=* und hazmat=*',
 	'covered'       : 'covered',
@@ -64,7 +64,7 @@ OpenLayers.Lang.de = OpenLayers.Util.extend(OpenLayers.Lang.de, {
 });
 
 OpenLayers.Lang.en = OpenLayers.Util.extend(OpenLayers.Lang.en, {
-	'title'         : 'OSM Truck QA Map - Missing maxheight tags in OSM',
+	'title'         : 'OSM Truck QA Map - Missing maxheight tags in OpenStreetMap',
 	'maxheight'     : 'maximum height',
 	'ito'           : 'hgv=* & hazmat=*',
 	'covered'       : 'covered',
@@ -125,7 +125,7 @@ OpenLayers.Lang.en = OpenLayers.Util.extend(OpenLayers.Lang.en, {
 
 // French translation by osm-operon
 OpenLayers.Lang.fr = OpenLayers.Util.extend(OpenLayers.Lang.fr, {
-	'title' 		: 'OSM Truck QA Map - Restriction de hauteur manquant dans OSM, gabarit poids-lourds', 
+	'title' 		: 'OSM Truck QA Map - Restriction de hauteur manquant dans OpenStreetMap', 
 	'maxheight' 	: 'Hauteur maximum', 
 	'ito' 			: 'hgv=* et hazmat=* Matière dangereuse', 
 	'covered'	    : 'Passage couvert',
@@ -183,4 +183,66 @@ OpenLayers.Lang.fr = OpenLayers.Util.extend(OpenLayers.Lang.fr, {
 	'export_gpx_title': 'Export all missing maxheight tag locations to a GPX file',	
 	'export_msg'    : "Le GPX possède les coordonnées précise des points d'intersection."
 
+});
+
+
+
+OpenLayers.Lang.es = OpenLayers.Util.extend(OpenLayers.Lang.es, {
+'title' : 'OSM Truck QA Map - Perdidas etiquetas alturaMax en OpenStreetMap',
+'maxheight' : 'máxima altura',
+'ito' : 'hgv=* & hazmat=*',
+'covered' : 'cubierto',
+'tunnel' : 'tunel',
+'railway' : 'vía debajo del puente del ferrocarril',
+'waybelowbridge': 'vía debajo del puente',
+'maxspeedhgv' : 'máxima velocidad para hgv',
+'maxweight' : 'máximo peso',
+'maxaxleload' : 'máximo peso por eje',
+'maxlength' : 'máxima longitud',
+'maxwidth' : 'máximo amplitud',
+'toll' : 'toll<br/><br/><span style="font-weight: bold;">Perdidas etiquetas de  alturaMax</span>',
+'zoomin' : 'Por favor, acercar la imagen para ver los datos.',
+'nolayer' : 'Por favor seleccione al menos una capa',
+'nodata' : 'No hay datos encontrados...',
+'loading' : 'Cargando datos ...',
+'showelements' : 'Mostrando ${number} funciones...',
+'editlinks' : 'Editar en <a id="potlatch">Potlatch</a>, <a id="ideditor">iD</a> o <a id="josm">JOSM</a>',
+'edit_title' : 'Editar en JOSM',
+'edit' : 'Editar',
+'info' : 'Detalles',
+'info_title' : 'Abrir objeto OSM en nueva ventana',
+'germanstyle' : 'Estilo Alemán OSM',
+'showlabel' : 'Mostrar/Ocultar labels',
+'showlabeltitle': 'Mostrar valores máximos para las capas seleccionadas en el mapa',
+'layerselection': 'Selección de capas',
+'mapdetails' : 'Detalles del mapa',
+'search' : 'Buscar...',
+'options' : 'Opciones',
+'opacity' : 'Opacidad',
+'opacity_title' : 'Ajustar opacidad del fondo del mapa',
+'vehicle_height': 'Altura del vehículo: ',
+'vehicle_weight': 'Peso: ',
+'simulation' : 'Simulación',
+'locate' : 'Localízame',
+'locate_title' : 'Muéstrame mi posición gps actual en el mapa',
+'track' : 'Seguir mi posición',
+'track_title' : 'Actualizaciones continuas de su posición gps actual en el mapa',
+'erroroccured' : 'Ha ocurrido un error superior al API: ${code} ${msg}',
+'labelstyle' : 'Intersección: ',
+'labelstyle_title' : 'Mostrar etiquetas alturaMax como línea o punto',
+'opt_line' : 'Línea',
+'opt_point' : 'Punto',
+'tab_search' : 'Búsqueda',
+'tab_time' : 'Historia',
+'datepicker_title' : 'Seleccione la fecha',
+'monthminus' : '-1 Mes',
+'monthplus' : '+1 Mes',
+'weekminus' : '-1 Semana',
+'weekplus' : '+1 Semana',
+'dayminus' : '-1 Día',
+'dayplus' : '+1 Día',
+'export' : 'Exportar',
+'export_gpx' : 'Exportación de GPX',
+'export_gpx_title': 'Exportar todas los lugares de la etiqueta alturaMax desaparecidos en un fichero GPX',
+'export_msg' : 'Por favor cambie el estilo de intersección a un punto primero. El estilo de la línea no puede ser utilizado para exportación GPX'
 });

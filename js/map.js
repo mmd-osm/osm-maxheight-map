@@ -8,10 +8,18 @@ var _global_maxheight = 4.0;
 var _global_maxweight = 7.5;
 var _global_classicStyle = false;
 var _global_timeout = 20;
+
+var _global_server = 'http://dev.overpass-api.de/api_mmd_test_only/';
+var _global_seg_x = 1;
+var _global_seg_y = 1;
+
 var _global_server = 'http://overpass-api.de/api/';
 var _global_seg_x = undefined;
 var _global_seg_y = undefined;
+
+
 var _global_date = new Date();
+var _global_mapillary = false;
 
 var epsg4326;
 var epsg900913;
@@ -71,7 +79,9 @@ function initMap(div_id){
 			case "1": _global_server = 'http://overpass-api.de/api/'; break;
 			case "2": _global_server = 'http://overpass.osm.rambler.ru/cgi/'; break;
 			case "3": _global_server = 'http://api.openstreetmap.fr/oapi/'; break;
-			case "9": _global_server = 'http://localhost/api/'; break;              //my test instance       
+			case "7": _global_server = 'http://dev.overpass-api.de/api_drolbr/'; break;
+			case "8": _global_server = 'http://dev.overpass-api.de/api_mmd/'; break;
+			case "9": _global_server = 'http://localhost/api/'; break;
 			default:  _global_server = 'http://overpass-api.de/api/';
 			}
 		}
@@ -102,7 +112,11 @@ function initMap(div_id){
 			seg_y = Math.floor(seg_y);
 			if (seg_y >= 1 && seg_y <= 8)
 				_global_seg_y = seg_y;			
-		}		
+		}	
+
+                var mapillary = getParam("mapillary");
+                if (mapillary != "")
+                    _global_mapillary = true;
 
 	})();
 	
@@ -158,12 +172,19 @@ function initMap(div_id){
 	//----------------------------------------------------------------------------
 
 	var osmLayer =  new OpenLayers.Layer.OSM("Mapnik", null, {
+//		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors, data provided by <a href="https://github.com/mmd-osm/Overpass-API/wiki/Overpass-API-test754" target="_blank">Overpass Lab Preview</a>'
 		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
 	});
 
 	map.addLayer(osmLayer);
 
-	map.addLayer(new OpenLayers.Layer.MapQuestOSM());
+	map.addLayer (new OpenLayers.Layer.XYZ(OpenLayers.i18n("OSM French Style"), 
+			[ "http://a.tile.openstreetmap.fr/osmfr/${z}/${x}/${y}.png",
+			  "http://b.tile.openstreetmap.fr/osmfr/${z}/${x}/${y}.png",
+			  "http://c.tile.openstreetmap.fr/osmfr/${z}/${x}/${y}.png"],
+			  {  numZoomLevels: 19, 
+		attribution: '&copy; Openstreetmap France | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}));
+
 
 	map.addLayer (new OpenLayers.Layer.XYZ(OpenLayers.i18n("germanstyle"), 
 			[ "http://a.tile.openstreetmap.de/tiles/osmde/${z}/${x}/${y}.png",
@@ -187,9 +208,10 @@ function initMap(div_id){
 	map.addLayer(new OpenLayers.Layer.OSM.Toolserver('Mapnik no labels','osm-no-labels'));
 	
 	map.addLayer(new OpenLayers.Layer.TMS(
-            "OSM Roads (New)",  // http://www.openmapsurfer.uni-hd.de/contact.html
-            "http://129.206.74.245:8001/tms_r.ashx?",
+            "OSM Roads",  // http://www.openmapsurfer.uni-hd.de/contact.html
+            "http://korona.geog.uni-heidelberg.de/tiles/roads/",
             {
+                numZoomLevels: 20,
                 type: 'png', 
                 getURL: function(bounds) {
                     var res = this.map.getResolution();
@@ -671,6 +693,68 @@ function initMap(div_id){
 		olCombinedBridgeLayer.setVisibility(true);
 	}	
 	
+
+/* Test Mapillary */
+
+if (_global_mapillary) {
+
+function onFeatureSelect_Mapillary(feature) {
+    console.log(feature);
+    $('#image').show();
+    $('#image').html(
+        '<a href="https://d1cuyjsrcm0gby.cloudfront.net/KEY/thumb-1024.jpg" target="_blank">'.replace(/KEY/, feature.data.key) + 
+        '<img src="https://d1cuyjsrcm0gby.cloudfront.net/KEY/thumb-320.jpg" title="Click for larger image"/></a>'.replace(/KEY/, feature.data.key));
+}
+
+function onFeatureUnselect_Mapillary(feature) {
+    $('#image').hide();
+    console.log('unselected', feature);
+}
+mapillaryLayer = new OpenLayers.Layer.Vector("Mapillary", {
+    projection: epsg4326,
+    strategies: [new OpenLayers.Strategy.BBOX({
+        resFactor: 1,
+        ratio: 1
+    })],
+    attribution: '&copy; <a href="http://www.mapillary.com/legal" target="_blank">Mapillary</a>',
+    protocol: new OpenLayers.Protocol.HTTP({
+        url: "http://api.mapillary.com/v1/im/search?",
+        format: new OpenLayers.Format.GeoJSON(),
+        params: {
+            'max-results': 100,
+                'geojson': true,
+        },
+        filterToParams: function (filter, params) {
+            if (filter.type === OpenLayers.Filter.Spatial.BBOX) {
+                // override the bbox serialization of the filter 
+                //   to give the Mapillary specific bounds
+                params['min-lat'] = filter.value.bottom;
+                params['max-lat'] = filter.value.top;
+                params['min-lon'] = filter.value.left;
+                params['max-lon'] = filter.value.right;
+            }
+            return params;
+        }
+    }),
+});
+
+
+  map.addLayer(mapillaryLayer);
+
+  selectControl_mapillary = new OpenLayers.Control.SelectFeature(mapillaryLayer, {
+      onSelect: onFeatureSelect_Mapillary,
+      onUnselect: onFeatureUnselect_Mapillary
+  });
+
+  map.addControl(selectControl_mapillary);
+  selectControl_mapillary.activate();
+}
+
+
+/* -------------------------- */
+
+
+
 	map.baseLayer.setOpacity(_global_opacity);
 	$('#maxheight_value').text((_global_maxheight).toFixed(2) + " m");
 	$('#maxweight_value').text((_global_maxweight).toFixed(1) + " t");

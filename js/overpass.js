@@ -314,6 +314,16 @@ FormatOSMMaxheightMap = OpenLayers.Class(OpenLayers.Format.OSM, {
 		
 		if (this.strategy) {
 			var node_list = check_error_doc.getElementsByTagName("remark");
+			var filtered_node_list = (function(){
+			    var filtered = [], i = node_list.length;
+			    while (i--) {
+			        if (!(/^.*runtime error:.*cannot be expanded at timestamp.*Bad geometry for .*$/.test(node_list[i].textContent))) {
+			            filtered.push(node_list[i]);
+			        }
+			    }
+			    return filtered;
+			})();
+			node_list = filtered_node_list;
 			if (node_list.length > 0) {
 				$("#statusline").text(OpenLayers.i18n('zoomin'))
 				                .css({ 'color': 'red', 'font-weight': 'bold' });

@@ -559,3 +559,12 @@ a.button:hover {
 		endColorstr='#00adee' );
 }
 
+#image {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+    background: white;
+    padding: 10px;
+    display: none;
+}

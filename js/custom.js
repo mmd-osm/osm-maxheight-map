@@ -19,7 +19,7 @@ $(document).ready(
 									
 			$( "#datepicker" ).datepicker({ 
 				
-				minDate: new Date(2012, 9 - 1, 1), 
+				minDate: (getParam("server") == "9" ? new Date(2007, 1 - 1, 1) : new Date(2012, 9 - 1, 1)), 
 				maxDate: "+0D",
 				changeMonth: true,
 				changeYear: true,

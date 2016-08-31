@@ -222,7 +222,7 @@ function featureFilterIntersection(feature) {
 	
 	
 	for (var i = 0; i < feature.length; i++) {
-		if (feature[i].fid.substr(0,4) == "node") { 
+		if (feature[i].fid[0] == "n") {    // node?
 	  	 // OSMTimeoutFormat already filtered out all nodes without maxheight tag,
 	     // so it is safe to assume we're processing maxheight nodes only. 
 		  osm_ids_node[feature[i].osm_id] = true;
@@ -230,8 +230,21 @@ function featureFilterIntersection(feature) {
 		}
 	}
 
-	for (var i=0; i<feature.length; i++) 
+	for (var i=0; i<feature.length; i++) {
 		feature[i]._element_added = false;
+/*
+// Test bbox
+
+		if (feature[i].fid[0] != "w")                        //not a way? ignore points for intersection check
+ 		 continue; 
+
+                _bounds = new OpenLayers.Bounds();    // calculate BBOX first for fast intersection checks
+                for (var j=0; j<feature[i].geometry.components.length; j++) {
+                   _bounds.extend(feature[i].geometry.components[j]);
+                }
+                feature[i].bounds = _bounds;
+*/                
+        }
 
 	for (var i=0; i<feature.length; i++) {
 		feat1 = feature[i];
@@ -239,24 +252,31 @@ function featureFilterIntersection(feature) {
 		if (feat1.attributes["bridge"] == undefined)
 			continue;
 		
-		if (feat1.fid.substr(0,3) != "way")   //ignore points for intersection check
+		if (feat1.fid[0] != "w")   //not a way? ignore points for intersection check
 		 continue;             
 		
 		layer_upper = parseInt(feat1.attributes["layer"]);
+
 		if (layer_upper == undefined || isNaN(layer_upper))
 			layer_upper = 1;
 		
 		for (var j=0;j<feature.length; j++) {
 			if (i == j)
 				continue;
+
 			feat2 = feature[j];
+
 			if (feat2.attributes["highway"] == undefined)
 				continue;
 			
-			if (feat2.fid.substr(0,3) != "way")   //ignore points for intersection check
+			if (feat2.fid[0] != "w")   //not a way? ignore points for intersection check
 				 continue;   
 
+//                        if (!feat2.bounds.intersectsBounds(feat1.bounds))
+//                             continue;
+
 			layer_lower = parseInt(feat2.attributes["layer"]);
+
 			if (layer_lower == undefined || isNaN(layer_lower))
 				layer_lower = 0;
 

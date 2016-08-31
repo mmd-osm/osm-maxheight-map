@@ -1,15 +1,15 @@
 Some tricks to improve performance
 ==================================
 
-Memoization of sorted results
------------------------------
+Memorization of sorted results
+------------------------------
 
-OpenLayer's intersection checks repeatedly calls OpenLayers.Geometry.LineString.getSortedSegments with the same segments. We employ a memoization technique, i.e. cache a previous sorting result. 
+OpenLayer's intersection checks repeatedly calls OpenLayers.Geometry.LineString.getSortedSegments with the same segments. We employ a memorization technique, i.e. cache a previous sorting result.
 
 On the fly BBOX splitting
 -------------------------
 
-Layers 'way below railway bridge' and 'way below bridge' depend on Overpass API's 'around' functionality with radius 0 for intersection checks. ''Around'' is quite CPU intensive as it needs to calcuate great circle distances on all relevant points in a bbox. A number of tests were conducted to analyse and improve response times. One interesting finding was that a larger bbox usually takes significantly more time than the same bbox split into smaller (slightly overlapping) bboxes. 
+Layers 'way below railway bridge' and 'way below bridge' depend on Overpass API's 'around' functionality with radius 0 for intersection checks. ''Around'' is quite CPU intensive as it needs to calculate great circle distances on all relevant points in a bbox. A number of tests were conducted to analyze and improve response times. One interesting finding was that a larger bbox usually takes significantly more time than the same bbox split into smaller (slightly overlapping) bboxes.
  
 
 | Test/Size     |     1x1             |  2x2      |  3x3    |   4x4     |   8x8      |
@@ -26,5 +26,5 @@ Depending on the zoom level and screen resolution Maxheight Map will automatical
 Layer merging 
 -------------
 
-If two layers 'way below railway bridge' and 'way below bridge' are both selected, they will be meged to one virtual layer, resulting in only one Overpass API request.
+If two layers 'way below railway bridge' and 'way below bridge' are both selected, they will be merged to one virtual layer, resulting in only one Overpass API request.
 

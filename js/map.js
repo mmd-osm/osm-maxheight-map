@@ -433,8 +433,8 @@ function initMap(div_id){
 					             "maxlength", "maxweight", "maxaxleload", "toll",
 					             "hgv", "hazmat", "hazmat:water", "toll:N3",
 					             "toll:n3", "maxspeed:hgv", "fee",
-					             "mazmat:forward","hazmat:backward",
-					             "maxweight:forward","maxweight:backward"];
+					             "hazmat:forward", "hazmat:backward",
+					             "maxweight:forward", "maxweight:backward"];
 
 					for (var i = 0; i < keys.length; i++) {
 						k = keys[i];

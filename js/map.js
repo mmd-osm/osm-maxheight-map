@@ -270,7 +270,7 @@ function initMap(div_id){
 	
 	var query_railwaylayer = '((way({{bbox}})["bridge"~"^(yes|viaduct)$"][railway];' +
 	                         'way(around:0)["highway"~"^((primary|secondary|tertiary|trunk)(_link)?|service|residential|unclassified)$"]' +
-	                         '[maxheight!~"."]["maxheight:physical"!~"."]["tunnel"!~"."]);>;);';
+	                         '[maxheight!~"."]["maxheight:physical"!~"."]["tunnel"!~"."];);>;);';
 
 	var olRailwayLayer = make_large_layer(_global_server, query_railwaylayer,
 			OpenLayers.i18n('railway'), getRailwayStyleMap (), [featureFilterIntersection,featureFilterSimplifyLineString], true, 11);
@@ -281,7 +281,7 @@ function initMap(div_id){
 
 	var query_bridgelayer = '((way({{bbox}})[bridge~"^(yes|viaduct)$"][railway!~"."];way(around:0)' + 
     '[highway~"^((primary|secondary|tertiary|trunk)(_link)?|service|residential|unclassified)$"]' + 
-    '[maxheight!~"."]["maxheight:physical"!~"."][tunnel!~"."]);>;);';
+    '[maxheight!~"."]["maxheight:physical"!~"."][tunnel!~"."];);>;);';
 
 	var olBridgeLayer = make_large_layer(_global_server, query_bridgelayer,
 			OpenLayers.i18n('waybelowbridge'), getMarkBridgeStyleMap(), [featureFilterIntersection,featureFilterSimplifyLineString], true, 11); 
@@ -292,7 +292,7 @@ function initMap(div_id){
 	// combined bridge layer merges queries of the two layers olBridgeLayer + olRailwayLayer into one single query (performance)
 	var query_combined_bridgelayer = '((way({{bbox}})[bridge~"^(yes|viaduct)$"];way(around:0)' + 
     '[highway~"^((primary|secondary|tertiary|trunk)(_link)?|service|residential|unclassified)$"]' + 
-    '[maxheight!~"."]["maxheight:physical"!~"."][tunnel!~"."]);>;);';
+    '[maxheight!~"."]["maxheight:physical"!~"."][tunnel!~"."];);>;);';
 
 	var olCombinedBridgeLayer = make_large_layer(_global_server, query_combined_bridgelayer,
 			'(combined bridge layer)', getMarkCombinedBridgeStyleMap(), [featureFilterIntersection,featureFilterSimplifyLineString], true, 11); 
